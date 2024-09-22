@@ -1,0 +1,31 @@
+name: Update RFD Table of Contents
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-summary:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Step 2: Run the Bash script to update the README.md with the RFD Table of Contents
+      - name: Update RFD Table of Contents
+        run: ./.github/scripts/update_toc.sh
+
+      # Step 3: Commit and push the updated README.md if changes are made
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+          git add README.md
+          git commit -m "Update RFD Table of Contents"
+          git push
+        if: success()
