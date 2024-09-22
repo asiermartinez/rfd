@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  generate-summary:
+  generate-rfd-toc:
     runs-on: ubuntu-latest
 
     steps:
